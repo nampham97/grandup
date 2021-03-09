@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import { BrowserRouter, Route} from 'react-router-dom';
+import PrivatePage from './component/PrivatePage';
+import PublicPage from './component/PublicPage';
+
+import PrivateRouter from './Router/PrivateRouter';
+import PublicRouter from './Router/PublicRouter';
 import './App.css';
+import LoadPage from './component/LoadPage';
+import { useGoogleAuth } from './context/GoogleAuthProvider';
+import NavPage from './component/NavPage';
+import About from './component/About';
+import Profile from './component/Profile';
+import Summary from './api/Summary';
 
 function App() {
+  const { isInitialized, googleUser,isSignedIn } = useGoogleAuth();
+  console.log('isInitialized:', isInitialized);
+  console.log('googleUser:', googleUser);
+  //
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+        {!isInitialized ? <LoadPage /> : 
+        
+        <BrowserRouter>
+            <NavPage userName={googleUser?.profileObj?.givenName}/>
+         
+            <PublicRouter path="/" component={PublicPage} />
+            <Route exact path="/about" component={About} />
+
+            <PrivateRouter path="/private" component={PrivatePage} />                
+
+            <Route exact path="/private/profile" render={() => <Profile isSignedIn={isSignedIn} profileUser={googleUser?.profileObj} />} />
+
+            <Route exact path="/private/summary" component = {Summary} />
+     
+        </BrowserRouter>
+        }
     </div>
   );
 }
