@@ -6,7 +6,6 @@ export default function Summary(){
     const [data, setData] = useState([]);
 
     const SUMMARY_API = 'https://api.covid19api.com/countries';
-    const USER_API = 'https://jsonplaceholder.typicode.com/users';
 
     useEffect(() => {
       axios
@@ -14,6 +13,15 @@ export default function Summary(){
         .then(result =>{    
             console.log('inthen', result);
             setData(result.data)
+        });
+
+        window.$(document).ready(function() {
+            window.$('#selectContry').select2({
+              tags: false,
+              width: 'resolve',
+              placeholder:'Vui lòng chọn',
+              allowClear : true 
+            });
         });
     }, []);
   
@@ -23,8 +31,8 @@ export default function Summary(){
         <select id="selectContry">
           {data.map((item, index) => (
             
-            <option key={index}>
-              {item.Country}: {item.ISO2}
+            <option key={index} value={item.ISO2}>
+              {item.Country}
             </option>
           ))}
         </select>
