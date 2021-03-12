@@ -6,7 +6,7 @@ import dataJson from '../unity/world_countries.json';
 export default function About(){
 
     const [summary, setSummary] = useState([]);
-    const [global, setGlobal] = useState([]);
+
     const SUMMARY_API = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cases2_v1/FeatureServer/2/query?where=1%3D1&outFields=Confirmed,ISO3&outSR=4326&f=json';
 
  
@@ -32,7 +32,7 @@ export default function About(){
 
 
     console.log('data' , summary);
-    console.log('global', global);
+
     console.log(dataJson.type);
     return (
         <div id="sodo"><br/>          

@@ -11,12 +11,14 @@ import NavPage from './component/NavPage';
 import About from './component/About';
 import Profile from './component/Profile';
 import Summary from './api/Summary';
+import Contract from './component/Contract';
 
 function App() {
   const { isInitialized, googleUser,isSignedIn } = useGoogleAuth();
   console.log('isInitialized:', isInitialized);
   console.log('googleUser:', googleUser);
-  //
+  //handle Form Contract
+
   return (
     <div className="App">
 
@@ -27,6 +29,10 @@ function App() {
          
             <PublicRouter path="/" component={PublicPage} />
             <Route exact path="/about" component={About} />
+            <Route exact path="/contract" render={() => <Contract 
+                                                          email={googleUser?.profileObj?.email}
+                                                         />
+                                                  }/>
 
             <PrivateRouter path="/private" component={PrivatePage} />                
 

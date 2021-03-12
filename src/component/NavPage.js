@@ -20,6 +20,7 @@ export default function NavPage({userName}){
                     <NavLink className="nav-link" exact to={userName ? '/private' : '/'}>Home</NavLink>
 
                     <NavLink className="nav-link" to="/about">About</NavLink>
+                    <NavLink className="nav-link" to="/contract">Contract</NavLink>
                 </Nav>
 
                 <Nav >
